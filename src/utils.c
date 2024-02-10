@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:46:45 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/01/09 13:15:42 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/10 20:29:47 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	parse(int argc, char **argv, t_table *table)
 	if (argc == 6)
 		table->tm_eat = ft_atoi(argv[5]);
 	else
-		table->tm_eat = -1;
+		table->tm_eat = 0;
 	if (table->n_philo <= 0 || table->tt_die <= 0 || table->tt_eat <= 0
 		|| table->tt_sleep <= 0 || (argc == 6 && table->tm_eat <= 0))
 	{

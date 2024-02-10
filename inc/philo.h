@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:20:19 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/10 13:22:39 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/10 20:27:37 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct	s_table
 	int				tt_eat;
 	int				tt_sleep;
 	int				tm_eat;
+	int				total_meals;
 	int				sim_end;
 	pthread_mutex_t	*sim_end_mutex;
 }					t_table;

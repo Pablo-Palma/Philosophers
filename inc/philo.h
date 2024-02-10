@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:20:19 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/10 08:13:15 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/10 12:07:25 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdint.h>
+//NONEEDED#####################
+# include <string.h>
 
 # define TAKE_FORKS "has taken a fork"
 # define THINKING "is thinking"
@@ -70,6 +72,7 @@ u_int64_t	get_time();
 
 ///###   ROUTINE
 void	*philo_routine(void *arg);
+void	messages(const char *status, t_philo *philo);
 
 ///###   THREADS
 void	*supervisor(void *arg);

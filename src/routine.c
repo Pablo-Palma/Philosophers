@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:31:31 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/10 11:21:59 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/10 12:06:33 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	messages(const char *status, t_philo *philo)
 
 	pthread_mutex_lock(philo->table->writex);
 	time = get_time() - philo->table->start_time;
-	if (!philo->table->sim_end)
+	if (!philo->table->sim_end || strcmp(status, DIED)== 0)
 		printf("%llu %d %s\n", time, philo->id, status);
 	pthread_mutex_unlock(philo->table->writex);
 }
@@ -48,10 +48,10 @@ void	take_forks(t_philo *philo)
 	}
 	pthread_mutex_lock(first_fork);
 	if (!philo->table->sim_end)
-		messages("has taken a fork", philo);
+		messages(TAKE_FORKS, philo);
 	pthread_mutex_lock(second_fork);
 	if (!philo->table->sim_end)
-		messages("has taken a fork", philo);
+		messages(TAKE_FORKS, philo);
 }
 
 void	drop_forks(t_philo *philo)

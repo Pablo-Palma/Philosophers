@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:20:19 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/10 12:07:25 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/10 13:22:39 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct	s_philo t_philo;
 typedef struct	s_table
 {
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	*writex;
+	pthread_mutex_t	writex;
 	t_philo			*philos;
 	long			start_time;
 	int				n_philo;

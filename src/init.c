@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:50:49 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/09 14:28:45 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/10 13:45:44 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,20 @@ int	init_philosophers(t_table *table)
 int	init_simulation(t_table *table)
 {
 	table->philos = malloc(sizeof(t_philo) * table->n_philo);
+	if (!table->philos)
+		return (0);
 	table->sim_end_mutex = malloc(sizeof(pthread_mutex_t));
 	if (!table->sim_end_mutex)
 	{
-		free(table->sim_end_mutex);
+		ft_exit(table);
 		return (0);
 	}
 	pthread_mutex_init(table->sim_end_mutex, NULL);
-	if (!table->philos)
-		return (0);
+	pthread_mutex_init(&table->writex, NULL);
 	if (!init_forks(table) || !init_philosophers(table))
+	{
+		ft_exit(table);
 		return (0);
+	}
 	return (1);
 }

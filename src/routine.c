@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:31:31 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/10 12:06:33 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/10 17:18:38 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ void	messages(const char *status, t_philo *philo)
 {
 	u_int64_t	time;
 
-	pthread_mutex_lock(philo->table->writex);
+	pthread_mutex_lock(&philo->table->writex);
 	time = get_time() - philo->table->start_time;
 	if (!philo->table->sim_end || strcmp(status, DIED)== 0)
 		printf("%llu %d %s\n", time, philo->id, status);
-	pthread_mutex_unlock(philo->table->writex);
+	pthread_mutex_unlock(&philo->table->writex);
 }
 
 void	take_forks(t_philo *philo)
@@ -87,11 +87,14 @@ void	*philo_routine(void *arg)
 	philo = (t_philo *)arg;
 	while(!philo->table->sim_end)
 	{
+		pthread_mutex_unlock(philo->table->sim_end_mutex);
 		eat(philo);
-		if (philo->table->sim_end) break;
-		messages(THINKING , philo);
+		//if (philo->table->sim_end)
+			//break;
 		messages(SLEEPING, philo);
     	usleep(philo->table->tt_sleep * 1000);
+		messages(THINKING , philo);
+//	   	usleep(philo->table->tt_sleep * 1000);
 	}
 	return (NULL);
 }

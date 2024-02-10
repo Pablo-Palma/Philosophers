@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 14:46:21 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/10 11:58:13 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/10 17:24:16 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	*supervisor(void *arg)
 		{
 			pthread_mutex_lock(table->philos[i].statex);
 			current_time = get_time() - table->start_time;
-			if ((current_time - table->philos[i].last_meal_time >= (u_int64_t)table->tt_die))
+			if ((current_time - table->philos[i].last_meal_time > (u_int64_t)table->tt_die))
 			{
 				pthread_mutex_lock(table->sim_end_mutex);
 				if (!table->sim_end)

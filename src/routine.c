@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:31:31 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/10 17:18:38 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/10 18:54:59 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,12 @@ void	*philo_routine(void *arg)
 	{
 		pthread_mutex_unlock(philo->table->sim_end_mutex);
 		eat(philo);
-		//if (philo->table->sim_end)
-			//break;
+		if (philo->table->sim_end)
+			break;
 		messages(SLEEPING, philo);
     	usleep(philo->table->tt_sleep * 1000);
 		messages(THINKING , philo);
-//	   	usleep(philo->table->tt_sleep * 1000);
+	   	usleep(philo->table->tt_sleep * 1000);
 	}
 	return (NULL);
 }

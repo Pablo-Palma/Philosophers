@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:20:19 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/12 08:56:49 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/12 10:04:21 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@
 # include <string.h>
 
 # define TAKE_FORKS "has taken a fork"
-# define THINKING "is thinking"
-# define SLEEPING "is sleeping"
-# define EATING "is eating"
-# define DIED "died"
+# define THINKING	"is thinking"
+# define SLEEPING	"is sleeping"
+# define EATING		"is eating"
+# define DIED		"died"
 
 typedef struct s_philo	t_philo;
 

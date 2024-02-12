@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:03:42 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/10 13:23:42 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/12 08:32:52 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	clear_philosophers(t_table *table)
 				free(table->philos[i].statex);
 				table->philos[i].statex = NULL;
 			}
-			if(table->philos[i].id_thread)
+			if (table->philos[i].id_thread)
 			{
 				free(table->philos[i].id_thread);
 				table->philos[i].id_thread = NULL;

@@ -6,30 +6,11 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:31:31 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/10 20:04:22 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/12 09:23:33 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-u_int64_t	get_time()
-{
-	struct timeval tv;
-
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * (u_int64_t)1000) + (tv.tv_usec / 1000));
-}
-
-void	messages(const char *status, t_philo *philo)
-{
-	u_int64_t	time;
-
-	pthread_mutex_lock(&philo->table->writex);
-	time = get_time() - philo->table->start_time;
-	if (!philo->table->sim_end || strcmp(status, DIED)== 0)
-		printf("%llu %d %s\n", time, philo->id, status);
-	pthread_mutex_unlock(&philo->table->writex);
-}
 
 void	take_forks(t_philo *philo)
 {
@@ -65,8 +46,8 @@ void	eat(t_philo *philo)
 	pthread_mutex_lock(philo->table->sim_end_mutex);
 	if (philo->table->sim_end)
 	{
-	    pthread_mutex_unlock(philo->table->sim_end_mutex);
-	    return ;
+		pthread_mutex_unlock(philo->table->sim_end_mutex);
+		return ;
 	}
 	pthread_mutex_unlock(philo->table->sim_end_mutex);
 	take_forks(philo);
@@ -76,26 +57,36 @@ void	eat(t_philo *philo)
 	philo->table->total_meals++;
 	pthread_mutex_unlock(philo->statex);
 	if (!philo->table->sim_end)
-	    messages(EATING, philo);
+		messages(EATING, philo);
 	usleep(philo->table->tt_eat * 1000);
 	drop_forks(philo);
 }
 
+void	handle_single_philo(t_philo *philo)
+{
+	pthread_mutex_lock(philo->left_fork);
+	messages(TAKE_FORKS, philo);
+	usleep(philo->table->tt_die * 1000);
+	philo->table->sim_end = 1;
+}
+
 void	*philo_routine(void *arg)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while(!philo->table->sim_end)
+	if (philo->table->n_philo == 1)
+		handle_single_philo(philo);
+	while (!philo->table->sim_end)
 	{
 		pthread_mutex_unlock(philo->table->sim_end_mutex);
 		eat(philo);
 		if (philo->table->sim_end)
-			break;
+			break ;
 		messages(SLEEPING, philo);
-    	usleep(philo->table->tt_sleep * 1000);
-		messages(THINKING , philo);
-	   	usleep(philo->table->tt_sleep * 1000);
+		usleep(philo->table->tt_sleep * 1000);
+		messages(THINKING, philo);
+		usleep(philo->table->tt_sleep * 1000);
 	}
 	return (NULL);
 }

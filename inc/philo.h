@@ -6,12 +6,12 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:20:19 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/10 20:27:37 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/12 08:56:49 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	PHILO_H
-# define	PHILO_H
+#ifndef PHILO_H
+# define PHILO_H
 
 # include <limits.h>
 # include <pthread.h>
@@ -29,9 +29,9 @@
 # define EATING "is eating"
 # define DIED "died"
 
-typedef struct	s_philo t_philo;
+typedef struct s_philo	t_philo;
 
-typedef struct	s_table
+typedef struct s_table
 {
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	writex;
@@ -47,7 +47,7 @@ typedef struct	s_table
 	pthread_mutex_t	*sim_end_mutex;
 }					t_table;
 
-typedef struct	s_philo
+typedef struct s_philo
 {
 	int				id;
 	int				n_meals;
@@ -59,28 +59,49 @@ typedef struct	s_philo
 	t_table			*table;
 }					t_philo;
 
-
-///####   INIT
-int	init_simulation(t_table *table);
-int	init_forks(t_table *table);
-int	init_philosophers(t_table *table);
+///////////////////////////////////////////////////////////////////////////////
+//                                                                           //
+//                                  INIT                                     //
+//                                                                           //
+///////////////////////////////////////////////////////////////////////////////
+int			init_simulation(t_table *table);
+int			init_forks(t_table *table);
+int			init_philosophers(t_table *table);
 
 ///####   UTILS
-int		parse(int argc, char **argv, t_table *table);
-void	destroy_mutexes(pthread_mutex_t *forks, int n_philo);
-int		ft_atoi(const char *str);
-u_int64_t	get_time();
+///////////////////////////////////////////////////////////////////////////////
+//                                                                           //
+//                                  UTILS                                    //
+//                                                                           //
+///////////////////////////////////////////////////////////////////////////////
+int			parse(int argc, char **argv, t_table *table);
+void		destroy_mutexes(pthread_mutex_t *forks, int n_philo);
+int			ft_atoi(const char *str);
+u_int64_t	get_time(void);
 
 ///###   ROUTINE
-void	*philo_routine(void *arg);
-void	messages(const char *status, t_philo *philo);
+///////////////////////////////////////////////////////////////////////////////
+//                                                                           //
+//                                	ROUTINE                                  //
+//                                                                           //
+///////////////////////////////////////////////////////////////////////////////
+void		*philo_routine(void *arg);
+void		messages(const char *status, t_philo *philo);
 
-///###   THREADS
-void	*supervisor(void *arg);
+///////////////////////////////////////////////////////////////////////////////
+//                                                                           //
+//                                  THREADS                                  //
+//                                                                           //
+///////////////////////////////////////////////////////////////////////////////
+void		*supervisor(void *arg);
 
-///###   EXIT
-void	clear_data(t_table *table);
-void	ft_exit(t_table *table);
-int		error(char *str, t_table *table);
+///////////////////////////////////////////////////////////////////////////////
+//                                                                           //
+//                                  EXIT                                     //
+//                                                                           //
+///////////////////////////////////////////////////////////////////////////////
+void		clear_data(t_table *table);
+void		ft_exit(t_table *table);
+int			error(char *str, t_table *table);
 
 #endif

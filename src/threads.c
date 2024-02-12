@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 14:46:21 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/10 20:31:15 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/12 09:17:45 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	*supervisor(void *arg)
             table->sim_end = 1;
 			messages(DIED, &table->philos[i - 1]);
             pthread_mutex_unlock(table->sim_end_mutex);
-            break; 
+            break;
         }
 		usleep(1000);
 	}

@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:31:31 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/12 13:03:13 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/12 14:37:04 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	*philo_routine(void *arg)
 				> ((u_int64_t)philo->table->tt_die))
 		{
 			messages(DIED, philo);
-			exit(0);
+			exit(1);
 		}
 		eat(philo);
 		messages(SLEEPING, philo);

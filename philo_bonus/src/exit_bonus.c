@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:03:42 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/12 12:30:48 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/12 15:17:49 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ void	ft_exit(t_table *table)
 	{
 		sem_close(table->writex);
 		sem_unlink(WRITEX_SEM);
+	}
+	if (table->total_meals_sem)
+	{
+		sem_close(table->total_meals_sem);
+		sem_unlink(TOTAL_MEALS_SEM);
 	}
 	if (table->philos)
 	{

@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:50:49 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/12 12:31:08 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/12 15:52:44 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,14 @@ int	init_simulation(t_table *table)
 	if (table->writex == SEM_FAILED)
 	{
 		perror ("sem_open failed for writex");
+		free(table->philos);
+		return (0);
+	}
+	sem_unlink(TOTAL_MEALS_SEM);
+	table->total_meals_sem = sem_open(TOTAL_MEALS_SEM, O_CREAT | O_EXCL, 0644, 1);
+	if (table->total_meals_sem == SEM_FAILED)
+	{
+		perror ("sem_open failed for total_meals_sem");
 		free(table->philos);
 		return (0);
 	}

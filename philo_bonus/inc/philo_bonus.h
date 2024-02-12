@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:20:19 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/12 13:00:14 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/12 15:05:04 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@
 # define EATING		"is eating"
 # define DIED		"died"
 
-# define FORKS_SEM	"/forks_sem"
-# define WRITEX_SEM	"/writex_sem"
+# define FORKS_SEM		"/forks_sem"
+# define WRITEX_SEM		"/writex_sem"
+#define TOTAL_MEALS_SEM "/total_meals_sem"
 
 typedef struct s_philo	t_philo;
 
@@ -41,6 +42,7 @@ typedef struct s_table
 {
 	sem_t			*forks;
 	sem_t			*writex;
+	sem_t			*total_meals_sem;
 	t_philo			*philos;
 	long			start_time;
 	int				n_philo;

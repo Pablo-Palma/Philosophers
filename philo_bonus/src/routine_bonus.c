@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:31:31 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/12 14:37:04 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/12 18:04:45 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	eat(t_philo *philo)
 	take_forks(philo);
 	philo->last_meal_time = get_time() - philo->table->start_time;
 	philo->n_meals++;
-	philo->table->total_meals++;
 	if (!philo->table->sim_end)
 		messages(EATING, philo);
 	usleep(philo->table->tt_eat * 1000);
@@ -61,7 +60,10 @@ void	*philo_routine(void *arg)
 			messages(DIED, philo);
 			exit(1);
 		}
+		sem_post(philo->table->total_meals_sem);
 		eat(philo);
+		if (philo->n_meals >= philo->table->tm_eat)
+			exit(3);
 		messages(SLEEPING, philo);
 		usleep(philo->table->tt_sleep * 1000);
 		messages(THINKING, philo);

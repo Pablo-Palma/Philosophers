@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:20:19 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/13 10:24:51 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/13 11:18:46 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@
 # define TIME_OUT	1
 # define MAX_MEALS	3
 
-
 //MESSAGES
-
 # define TAKE_FORKS "has taken a fork"
 # define THINKING	"is thinking"
 # define SLEEPING	"is sleeping"
@@ -41,7 +39,7 @@
 
 # define FORKS_SEM		"/forks_sem"
 # define WRITEX_SEM		"/writex_sem"
-# define TOTAL_MEALS_SEM "/total_meals_sem"
+# define MEALS_SEM "/total_meals_sem"
 
 typedef struct s_philo	t_philo;
 

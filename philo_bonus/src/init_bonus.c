@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:50:49 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/13 09:53:06 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/13 11:18:26 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,8 @@ int	init_philosophers(t_table *table)
 	return (1);
 }
 
-int	init_simulation(t_table *table)
+int	init_sems(t_table	*table)
 {
-	table->philos = malloc(sizeof(t_philo) * table->n_philo);
-	if (!table->philos)
-		return (0);
 	sem_unlink(WRITEX_SEM);
 	table->writex = sem_open(WRITEX_SEM, O_CREAT | O_EXCL, 0644, 1);
 	if (table->writex == SEM_FAILED)
@@ -54,15 +51,23 @@ int	init_simulation(t_table *table)
 		free(table->philos);
 		return (0);
 	}
-	sem_unlink(TOTAL_MEALS_SEM);
-	table->total_meals_sem = sem_open(TOTAL_MEALS_SEM, O_CREAT | O_EXCL, 0644, 1);
+	sem_unlink(MEALS_SEM);
+	table->total_meals_sem = sem_open(MEALS_SEM, O_CREAT | O_EXCL, 0644, 1);
 	if (table->total_meals_sem == SEM_FAILED)
 	{
 		perror ("sem_open failed for total_meals_sem");
 		free(table->philos);
 		return (0);
 	}
-	if (!init_forks(table))
+	return (1);
+}
+
+int	init_simulation(t_table *table)
+{
+	table->philos = malloc(sizeof(t_philo) * table->n_philo);
+	if (!table->philos)
+		return (0);
+	if (!init_forks(table) || !init_sems(table))
 	{
 		free(table->philos);
 		return (0);

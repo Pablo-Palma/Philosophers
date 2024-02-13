@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:03:42 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/13 10:00:50 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/13 10:27:01 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,21 +61,17 @@ void	wait_and_terminate(t_table	*table)
 	pid = waitpid(-1, &status, 0);
 	while (pid > 0)
 	{
-		if (WIFEXITED(status) && WEXITSTATUS(status) == 3)
+		if (WIFEXITED(status))
 		{
-			count_meals++;
-			if (count_meals >= table->n_philo)
+			if (WEXITSTATUS(status) == MAX_MEALS)
+				count_meals++;
+			if (count_meals >= table->n_philo
+				|| WEXITSTATUS(status) == TIME_OUT)
 			{
 				terminate_philos(table);
 				messages(DIED, &table->philos[i]);
 				break ;
 			}
-		}
-		else if (WIFEXITED(status) && WEXITSTATUS(status) != EXIT_SUCCESS)
-		{
-			messages(DIED, &table->philos[i]);
-			terminate_philos(table);
-			break ;
 		}
 		pid = waitpid(-1, &status, 0);
 	}

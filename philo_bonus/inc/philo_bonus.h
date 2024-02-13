@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:20:19 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/13 09:24:12 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/13 10:24:51 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@
 //NONEEDED#####################
 # include <pthread.h>
 # include <string.h>
+
+//CODES
+# define TIME_OUT	1
+# define MAX_MEALS	3
+
+
+//MESSAGES
 
 # define TAKE_FORKS "has taken a fork"
 # define THINKING	"is thinking"

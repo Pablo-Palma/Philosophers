@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 14:46:21 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/12 10:00:37 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/13 13:48:06 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,19 @@ void	*supervisor(void *arg)
 				return (NULL);
 			i++;
 		}
+		pthread_mutex_lock(&table->meals_mutex);
+		pthread_mutex_lock(table->sim_end_mutex);
 		if (!table->sim_end && table->tm_eat && table->total_meals
 			>= table->n_philo * table->tm_eat)
 		{
-			pthread_mutex_lock(table->sim_end_mutex);
 			table->sim_end = 1;
 			messages(DIED, &table->philos[i - 1]);
 			pthread_mutex_unlock(table->sim_end_mutex);
+			pthread_mutex_unlock(&table->meals_mutex);
 			break ;
 		}
+		pthread_mutex_unlock(table->sim_end_mutex);
+		pthread_mutex_unlock(&table->meals_mutex);
 		usleep(1000);
 	}
 	return (NULL);

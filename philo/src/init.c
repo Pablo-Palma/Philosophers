@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:50:49 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/10 20:20:26 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/13 13:37:36 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	init_simulation(t_table *table)
 	}
 	pthread_mutex_init(table->sim_end_mutex, NULL);
 	pthread_mutex_init(&table->writex, NULL);
+	pthread_mutex_init(&table->meals_mutex, NULL);
 	if (!init_forks(table) || !init_philosophers(table))
 	{
 		ft_exit(table);

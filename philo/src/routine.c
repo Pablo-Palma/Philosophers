@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:31:31 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/12 10:18:38 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/13 13:44:40 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,13 @@ void	eat(t_philo *philo)
 		return ;
 	}
 	pthread_mutex_unlock(philo->table->sim_end_mutex);
-	take_forks(philo);
 	pthread_mutex_lock(philo->statex);
+	take_forks(philo);
 	philo->last_meal_time = get_time() - philo->table->start_time;
+	pthread_mutex_lock(&philo->table->meals_mutex);
 	philo->n_meals++;
 	philo->table->total_meals++;
+	pthread_mutex_unlock(&philo->table->meals_mutex);
 	pthread_mutex_unlock(philo->statex);
 	if (!philo->table->sim_end)
 		messages(EATING, philo);

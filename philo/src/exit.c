@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:03:42 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/12 08:32:52 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/13 13:36:26 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	ft_exit(t_table *table)
 	}
 	i = 0;
 	pthread_mutex_destroy(&table->writex);
+	pthread_mutex_destroy(&table->meals_mutex);
 	if (table->sim_end_mutex)
 	{
 		pthread_mutex_destroy(table->sim_end_mutex);

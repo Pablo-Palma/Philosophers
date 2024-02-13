@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:20:19 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/13 12:13:50 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/13 13:35:51 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_table
 {
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	writex;
+	pthread_mutex_t	meals_mutex;
 	t_philo			*philos;
 	long			start_time;
 	int				n_philo;

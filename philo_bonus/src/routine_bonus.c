@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:31:31 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/12 18:16:07 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/13 09:32:56 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,13 @@ void	*philo_routine(void *arg)
 	while (1)
 	{
 		if ((get_time() - philo->table->start_time - philo->last_meal_time)
-				> ((u_int64_t)philo->table->tt_die))
-		{
-			messages(DIED, philo);
+			> ((u_int64_t)philo->table->tt_die))
 			exit(1);
-		}
-		sem_post(philo->table->total_meals_sem);
 		eat(philo);
-		if (philo->table->tm_eat > 0 &&  philo->n_meals >= philo->table->tm_eat)
+		if (philo->table->tm_eat > 0 && philo->n_meals >= philo->table->tm_eat)
 			exit(3);
 		messages(SLEEPING, philo);
 		usleep(philo->table->tt_sleep * 1000);
 		messages(THINKING, philo);
-		//usleep(philo->table->tt_sleep * 1000);
 	}
 }

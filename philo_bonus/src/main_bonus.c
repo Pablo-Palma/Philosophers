@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:03:42 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/12 18:10:44 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/13 09:33:29 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	wait_and_terminate(t_table	*table)
 		}
 		else if (WIFEXITED(status) && WEXITSTATUS(status) != EXIT_SUCCESS)
 		{
+			messages(DIED, &table->philos[i]);
 			while (i < table->n_philo)
 			{
 				kill(table->philos[i].pid, SIGTERM);

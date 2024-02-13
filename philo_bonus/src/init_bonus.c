@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:50:49 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/12 15:52:44 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/13 09:26:18 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	init_forks(t_table *table)
 {
-	
 	sem_unlink(FORKS_SEM);
 	table->forks = sem_open(FORKS_SEM, O_CREAT | O_EXCL, 0644, table->n_philo);
 	if (table->forks == SEM_FAILED)
@@ -47,6 +46,7 @@ int	init_simulation(t_table *table)
 	table->philos = malloc(sizeof(t_philo) * table->n_philo);
 	if (!table->philos)
 		return (0);
+	
 	sem_unlink(WRITEX_SEM);
 	table->writex = sem_open(WRITEX_SEM, O_CREAT | O_EXCL, 0644, 1);
 	if (table->writex == SEM_FAILED)

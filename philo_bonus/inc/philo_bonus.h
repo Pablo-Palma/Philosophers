@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:20:19 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/12 15:05:04 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/13 09:24:12 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 
 # define FORKS_SEM		"/forks_sem"
 # define WRITEX_SEM		"/writex_sem"
-#define TOTAL_MEALS_SEM "/total_meals_sem"
+# define TOTAL_MEALS_SEM "/total_meals_sem"
 
 typedef struct s_philo	t_philo;
 

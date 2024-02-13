@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:03:42 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/12 09:38:17 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/13 12:07:20 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	create_philo_threads(t_table	*table)
 		if (pthread_create(table->philos[i].id_thread, NULL, philo_routine,
 				(void *)&(table->philos[i])) != 0)
 		{
-			perror("Failed to create philosopher thread");
+			write(2, "Failed to create philosopher thread", 36);
 			ft_exit(table);
 			return (1);
 		}
@@ -50,7 +50,7 @@ int	main(int argc, char **argv)
 	create_philo_threads(&table);
 	if (pthread_create(&supervisor_thread, NULL, supervisor,
 			(void *)&table) != 0)
-		perror("Failed to create supervisor thread");
+		write(2, "Failed to create supervisor thread", 35);
 	while (i < table.n_philo)
 	{
 		pthread_join(*(table.philos[i].id_thread), NULL);

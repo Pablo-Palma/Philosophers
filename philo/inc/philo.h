@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:20:19 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/12 10:04:21 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/13 12:13:50 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdint.h>
-//NONEEDED#####################
-# include <string.h>
 
 # define TAKE_FORKS "has taken a fork"
 # define THINKING	"is thinking"
@@ -68,7 +66,6 @@ int			init_simulation(t_table *table);
 int			init_forks(t_table *table);
 int			init_philosophers(t_table *table);
 
-///####   UTILS
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                           //
 //                                  UTILS                                    //
@@ -78,8 +75,8 @@ int			parse(int argc, char **argv, t_table *table);
 void		destroy_mutexes(pthread_mutex_t *forks, int n_philo);
 int			ft_atoi(const char *str);
 u_int64_t	get_time(void);
+int			ft_strcmp(const char *s1, const char *s2);
 
-///###   ROUTINE
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                           //
 //                                	ROUTINE                                  //

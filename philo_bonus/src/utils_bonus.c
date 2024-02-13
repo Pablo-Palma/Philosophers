@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:46:45 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/13 09:32:00 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/13 12:24:49 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,23 @@ u_int64_t	get_time(void)
 	return ((tv.tv_sec * (u_int64_t)1000) + (tv.tv_usec / 1000));
 }
 
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	while (*s1 && (*s1 == *s2))
+	{
+		s1++;
+		s2++;
+	}
+	return ((unsigned char)*s1 - (unsigned char)*s2);
+}
+
 void	messages(const char *status, t_philo *philo)
 {
 	u_int64_t	time;
 
 	sem_wait(philo->table->writex);
 	time = get_time() - philo->table->start_time;
-	if (!philo->table->sim_end || strcmp(status, DIED) == 0)
+	if (!philo->table->sim_end || ft_strcmp(status, DIED) == 0)
 		printf("%llu %d %s\n", time, philo->id, status);
 	sem_post(philo->table->writex);
 }

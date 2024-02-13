@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:50:49 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/13 11:18:26 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/13 12:28:42 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	init_forks(t_table *table)
 	table->forks = sem_open(FORKS_SEM, O_CREAT | O_EXCL, 0644, table->n_philo);
 	if (table->forks == SEM_FAILED)
 	{
-		perror ("Sem_open failed");
+		write(2, "Sem_open failed", 16);
 		return (0);
 	}
 	return (1);
@@ -47,7 +47,7 @@ int	init_sems(t_table	*table)
 	table->writex = sem_open(WRITEX_SEM, O_CREAT | O_EXCL, 0644, 1);
 	if (table->writex == SEM_FAILED)
 	{
-		perror ("sem_open failed for writex");
+		write(2, "sem_open failed for writex", 27);
 		free(table->philos);
 		return (0);
 	}
@@ -55,7 +55,7 @@ int	init_sems(t_table	*table)
 	table->total_meals_sem = sem_open(MEALS_SEM, O_CREAT | O_EXCL, 0644, 1);
 	if (table->total_meals_sem == SEM_FAILED)
 	{
-		perror ("sem_open failed for total_meals_sem");
+		write(2, "sem_open failed for total_meals_sem", 27);
 		free(table->philos);
 		return (0);
 	}

@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:03:42 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/13 11:08:28 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/13 12:25:36 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	create_philo_pro(t_table	*table)
 		table->philos[i].pid = fork();
 		if (table->philos[i].pid < 0)
 		{
-			perror("Failed to create philosopher process");
+			write(2, "Failed to create philosopher process", 37);
 			ft_exit(table);
 			return (1);
 		}
@@ -54,7 +54,7 @@ void	messages_died(const char *status, t_philo *philo)
 	u_int64_t	time;
 
 	time = get_time() - philo->table->start_time;
-	if (!philo->table->sim_end || strcmp(status, DIED) == 0)
+	if (!philo->table->sim_end || ft_strcmp(status, DIED) == 0)
 		printf("%llu %d %s\n", time, philo->id, status);
 }
 

@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:20:19 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/13 11:18:46 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/13 12:24:15 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,6 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdint.h>
-//NONEEDED#####################
-# include <pthread.h>
-# include <string.h>
 
 //CODES
 # define TIME_OUT	1
@@ -65,7 +62,6 @@ typedef struct s_philo
 	int				id;
 	int				n_meals;
 	long			last_meal_time;
-//	sem_t			*fork_sem;
 	pid_t			pid;
 	t_table			*table;
 }					t_philo;
@@ -79,7 +75,6 @@ int			init_simulation(t_table *table);
 int			init_forks(t_table *table);
 int			init_philosophers(t_table *table);
 
-///####   UTILS
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                           //
 //                                  UTILS                                    //
@@ -89,8 +84,8 @@ int			parse(int argc, char **argv, t_table *table);
 void		destroy_mutexes(pthread_mutex_t *forks, int n_philo);
 int			ft_atoi(const char *str);
 u_int64_t	get_time(void);
+int			ft_strcmp(const char *s1, const char *s2);
 
-///###   ROUTINE
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                           //
 //                                	ROUTINE                                  //

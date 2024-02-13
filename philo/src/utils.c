@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:46:45 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/12 10:20:36 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/13 12:12:01 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,19 @@ void	messages(const char *status, t_philo *philo)
 
 	pthread_mutex_lock(&philo->table->writex);
 	time = get_time() - philo->table->start_time;
-	if (!philo->table->sim_end || strcmp(status, DIED) == 0)
+	if (!philo->table->sim_end || ft_strcmp(status, DIED) == 0)
 		printf("%llu %d %s\n", time, philo->id, status);
 	pthread_mutex_unlock(&philo->table->writex);
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	while (*s1 && (*s1 == *s2))
+	{
+		s1++;
+		s2++;
+	}
+	return ((unsigned char)*s1 - (unsigned char)*s2);
 }
 
 int	parse(int argc, char **argv, t_table *table)

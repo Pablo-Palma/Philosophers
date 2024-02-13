@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:03:42 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/12 15:17:49 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/13 09:53:15 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_exit(t_table *table)
 	{
 		sem_close(table->forks);
 		sem_unlink(FORKS_SEM);
-
 	}
 	if (table->writex)
 	{

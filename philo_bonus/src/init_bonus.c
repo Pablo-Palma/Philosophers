@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:50:49 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/13 09:26:18 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/13 09:53:06 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	init_simulation(t_table *table)
 	table->philos = malloc(sizeof(t_philo) * table->n_philo);
 	if (!table->philos)
 		return (0);
-	
 	sem_unlink(WRITEX_SEM);
 	table->writex = sem_open(WRITEX_SEM, O_CREAT | O_EXCL, 0644, 1);
 	if (table->writex == SEM_FAILED)

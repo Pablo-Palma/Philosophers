@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:03:42 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/13 09:33:29 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/13 09:58:00 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	wait_and_terminate(t_table	*table)
 
 	i = 0;
 	count_meals = 0;
-	while ((pid = waitpid(-1, &status, 0)) > 0)
+	pid = waitpid(-1, &status, 0);
+	while (pid > 0)
 	{
 		if (WIFEXITED(status) && WEXITSTATUS(status) == 3)
 		{
@@ -72,6 +73,7 @@ void	wait_and_terminate(t_table	*table)
 			}
 			break ;
 		}
+		pid = waitpid(-1, &status, 0);
 	}
 	ft_exit(table);
 }

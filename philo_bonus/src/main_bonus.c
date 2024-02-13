@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:03:42 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/13 09:58:00 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/13 10:00:50 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,18 @@ int	create_philo_pro(t_table	*table)
 	return (0);
 }
 
+void	terminate_philos(t_table	*table)
+{
+	int	i;
+
+	i = 0;
+	while (i < table->n_philo)
+	{
+		kill(table->philos[i].pid, SIGTERM);
+		i++;
+	}
+}
+
 void	wait_and_terminate(t_table	*table)
 {
 	int		status;
@@ -54,23 +66,15 @@ void	wait_and_terminate(t_table	*table)
 			count_meals++;
 			if (count_meals >= table->n_philo)
 			{
+				terminate_philos(table);
 				messages(DIED, &table->philos[i]);
-				while (i < table->n_philo)
-				{
-					kill(table->philos[i].pid, SIGTERM);
-					i++;
-				}
 				break ;
 			}
 		}
 		else if (WIFEXITED(status) && WEXITSTATUS(status) != EXIT_SUCCESS)
 		{
 			messages(DIED, &table->philos[i]);
-			while (i < table->n_philo)
-			{
-				kill(table->philos[i].pid, SIGTERM);
-				i++;
-			}
+			terminate_philos(table);
 			break ;
 		}
 		pid = waitpid(-1, &status, 0);

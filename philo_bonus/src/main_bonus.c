@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:03:42 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/13 10:27:01 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/13 11:08:28 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,15 @@ void	terminate_philos(t_table	*table)
 	}
 }
 
+void	messages_died(const char *status, t_philo *philo)
+{
+	u_int64_t	time;
+
+	time = get_time() - philo->table->start_time;
+	if (!philo->table->sim_end || strcmp(status, DIED) == 0)
+		printf("%llu %d %s\n", time, philo->id, status);
+}
+
 void	wait_and_terminate(t_table	*table)
 {
 	int		status;
@@ -69,7 +78,7 @@ void	wait_and_terminate(t_table	*table)
 				|| WEXITSTATUS(status) == TIME_OUT)
 			{
 				terminate_philos(table);
-				messages(DIED, &table->philos[i]);
+				messages_died(DIED, &table->philos[i]);
 				break ;
 			}
 		}

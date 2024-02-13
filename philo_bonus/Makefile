@@ -1,4 +1,4 @@
-NAME = philo
+NAME = philo_bonus
 CC = gcc
 CFLAGS = -g3 -Wall -Werror -Wextra -pthread -I inc
 SRC_DIR = src/

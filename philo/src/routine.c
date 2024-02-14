@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:31:31 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/14 15:13:39 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/14 17:53:20 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	drop_forks(t_philo *philo)
 
 void	eat(t_philo *philo)
 {
+	u_int64_t time;
+
 	pthread_mutex_lock(philo->table->sim_end_mutex);
 	if (philo->table->sim_end)
 	{
@@ -52,8 +54,9 @@ void	eat(t_philo *philo)
 	pthread_mutex_unlock(philo->table->sim_end_mutex);
 	pthread_mutex_lock(philo->statex);
 	take_forks(philo);
+	time = get_time();
 	pthread_mutex_lock(&philo->table->meals_mutex);
-	philo->last_meal_time = get_time() - philo->table->start_time;
+	philo->last_meal_time = time - philo->table->start_time;
 	philo->n_meals++;
 	philo->table->total_meals++;
 	pthread_mutex_unlock(&philo->table->meals_mutex);
@@ -99,7 +102,7 @@ void	*philo_routine(void *arg)
 		messages(SLEEPING, philo);
 		usleep(philo->table->tt_sleep * 1000);
 		messages(THINKING, philo);
-		usleep(philo->table->tt_sleep * 1000);
+	//	usleep(philo->table->tt_sleep * 1000);
 	}
 	return (NULL);
 }

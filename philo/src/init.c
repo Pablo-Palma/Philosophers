@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:50:49 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/13 13:37:36 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/14 16:18:48 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	init_philosophers(t_table *table)
 		table->philos[i].id = i + 1;
 		table->philos[i].n_meals = 0;
 		table->total_meals = 0;
-		table->philos[i].last_meal_time = 0;
+		table->philos[i].last_meal_time = table->start_time;
 		table->philos[i].right_fork = &table->forks[i];
 		table->philos[i].left_fork = &table->forks[(i + 1) % table->n_philo];
 		table->philos[i].table = table;

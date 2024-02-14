@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:31:31 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/14 12:23:58 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/14 15:13:39 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	take_forks(t_philo *philo)
 	pthread_mutex_lock(second_fork);
 	if (!philo->table->sim_end)
 		messages(TAKE_FORKS, philo);
-
 }
 
 void	drop_forks(t_philo *philo)

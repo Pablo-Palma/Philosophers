@@ -25,9 +25,11 @@ int	check_death(t_philo	*philo)
 		if (!philo->table->sim_end)
 		{
 			philo->table->sim_end = 1;
+			pthread_mutex_unlock(philo->table->sim_end_mutex);
 			messages(DIED, philo);
 		}
-		pthread_mutex_unlock(philo->table->sim_end_mutex);
+		else
+			pthread_mutex_unlock(philo->table->sim_end_mutex);
 		pthread_mutex_unlock(philo->statex);
 		return (1);
 	}
@@ -56,8 +58,8 @@ void	*supervisor(void *arg)
 			>= table->n_philo * table->tm_eat)
 		{
 			table->sim_end = 1;
-			messages(DIED, &table->philos[i - 1]);
 			pthread_mutex_unlock(table->sim_end_mutex);
+			messages(DIED, &table->philos[i - 1]);
 			pthread_mutex_unlock(&table->meals_mutex);
 			break ;
 		}

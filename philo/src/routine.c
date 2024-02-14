@@ -52,14 +52,18 @@ void	eat(t_philo *philo)
 	pthread_mutex_unlock(philo->table->sim_end_mutex);
 	pthread_mutex_lock(philo->statex);
 	take_forks(philo);
-	philo->last_meal_time = get_time() - philo->table->start_time;
 	pthread_mutex_lock(&philo->table->meals_mutex);
+	philo->last_meal_time = get_time() - philo->table->start_time;
 	philo->n_meals++;
 	philo->table->total_meals++;
 	pthread_mutex_unlock(&philo->table->meals_mutex);
 	pthread_mutex_unlock(philo->statex);
+	pthread_mutex_lock(philo->table->sim_end_mutex);
 	if (!philo->table->sim_end)
+	{
+		pthread_mutex_unlock(philo->table->sim_end_mutex);
 		messages(EATING, philo);
+	}
 	usleep(philo->table->tt_eat * 1000);
 	drop_forks(philo);
 }
@@ -79,12 +83,17 @@ void	*philo_routine(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->table->n_philo == 1)
 		handle_single_philo(philo);
-	while (!philo->table->sim_end)
+	while (1)
 	{
-		pthread_mutex_unlock(philo->table->sim_end_mutex);
 		eat(philo);
+		pthread_mutex_lock(philo->table->sim_end_mutex);
 		if (philo->table->sim_end)
+		{
+			pthread_mutex_unlock(philo->table->sim_end_mutex);
 			break ;
+		}
+		else
+			pthread_mutex_unlock(philo->table->sim_end_mutex);
 		messages(SLEEPING, philo);
 		usleep(philo->table->tt_sleep * 1000);
 		messages(THINKING, philo);

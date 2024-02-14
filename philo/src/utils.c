@@ -25,9 +25,11 @@ void	messages(const char *status, t_philo *philo)
 	u_int64_t	time;
 
 	pthread_mutex_lock(&philo->table->writex);
+	pthread_mutex_lock(philo->table->sim_end_mutex);
 	time = get_time() - philo->table->start_time;
 	if (!philo->table->sim_end || ft_strcmp(status, DIED) == 0)
-		printf("%llu %d %s\n", time, philo->id, status);
+		printf("%lu %d %s\n", time, philo->id, status);
+	pthread_mutex_unlock(philo->table->sim_end_mutex);
 	pthread_mutex_unlock(&philo->table->writex);
 }
 

@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:31:31 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/13 13:44:40 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/14 12:23:58 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	take_forks(t_philo *philo)
 	pthread_mutex_lock(second_fork);
 	if (!philo->table->sim_end)
 		messages(TAKE_FORKS, philo);
+
 }
 
 void	drop_forks(t_philo *philo)
@@ -64,6 +65,8 @@ void	eat(t_philo *philo)
 		pthread_mutex_unlock(philo->table->sim_end_mutex);
 		messages(EATING, philo);
 	}
+	else
+		pthread_mutex_unlock(philo->table->sim_end_mutex);
 	usleep(philo->table->tt_eat * 1000);
 	drop_forks(philo);
 }

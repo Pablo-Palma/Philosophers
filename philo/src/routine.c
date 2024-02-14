@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:31:31 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/14 17:53:20 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/14 19:35:19 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,10 @@ void	eat(t_philo *philo)
 		return ;
 	}
 	pthread_mutex_unlock(philo->table->sim_end_mutex);
-	pthread_mutex_lock(philo->statex);
 	take_forks(philo);
-	time = get_time();
 	pthread_mutex_lock(&philo->table->meals_mutex);
-	philo->last_meal_time = time - philo->table->start_time;
-	philo->n_meals++;
 	philo->table->total_meals++;
 	pthread_mutex_unlock(&philo->table->meals_mutex);
-	pthread_mutex_unlock(philo->statex);
 	pthread_mutex_lock(philo->table->sim_end_mutex);
 	if (!philo->table->sim_end)
 	{
@@ -71,6 +66,11 @@ void	eat(t_philo *philo)
 		pthread_mutex_unlock(philo->table->sim_end_mutex);
 	usleep(philo->table->tt_eat * 1000);
 	drop_forks(philo);
+	pthread_mutex_lock(philo->statex);
+	time = get_time();
+	philo->last_meal_time = time - philo->table->start_time;
+	philo->n_meals++;
+	pthread_mutex_unlock(philo->statex);
 }
 
 void	handle_single_philo(t_philo *philo)

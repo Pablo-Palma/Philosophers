@@ -6,11 +6,16 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:03:42 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/15 13:53:14 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/15 15:43:01 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+/*void	leaks(void)
+{
+	system("leaks -q philo");
+}*/
 
 int	create_philo_threads(t_table	*table)
 {

@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:46:45 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/15 17:08:10 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/15 17:52:17 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,8 @@ int	parse(int argc, char **argv, t_table *table)
 		printf("Error: All arguments must be numeric.\n");
 		return (1);
 	}
-	assign_values(table, argv);
-	if (argc == 6 && is_numeric(argv[5]))
-		table->tm_eat = ft_atoi(argv[5]);
-	else
-		table->tm_eat = 0;
+	if (assign_values(table, argv, argc))
+		return (1);
 	if (table->n_philo <= 0 || table->tt_die <= 0 || table->tt_eat <= 0
 		|| table->tt_sleep <= 0 || (argc == 6 && table->tm_eat <= 0))
 	{

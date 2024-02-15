@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:46:45 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/14 15:12:41 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/15 14:20:44 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,6 @@ u_int64_t	get_time(void)
 
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * (u_int64_t)1000) + (tv.tv_usec / 1000));
-}
-
-void	messages(const char *status, t_philo *philo)
-{
-	u_int64_t	time;
-
-	pthread_mutex_lock(&philo->table->writex);
-	pthread_mutex_lock(philo->table->sim_end_mutex);
-	time = get_time() - philo->table->start_time;
-	if (!philo->table->sim_end || ft_strcmp(status, DIED) == 0)
-		printf("%llu %d %s\n", time, philo->id, status);
-	pthread_mutex_unlock(philo->table->sim_end_mutex);
-	pthread_mutex_unlock(&philo->table->writex);
 }
 
 int	ft_strcmp(const char *s1, const char *s2)
@@ -73,10 +60,7 @@ int	parse(int argc, char **argv, t_table *table)
 		printf("Error: All arguments must be numeric.\n");
 		return (1);
 	}
-	table->n_philo = ft_atoi(argv[1]);
-	table->tt_die = ft_atoi(argv[2]);
-	table->tt_eat = ft_atoi(argv[3]);
-	table->tt_sleep = ft_atoi(argv[4]);
+	assign_values(table, argv);
 	if (argc == 6)
 		table->tm_eat = ft_atoi(argv[5]);
 	else
@@ -87,8 +71,6 @@ int	parse(int argc, char **argv, t_table *table)
 		printf("Error, all arguments must be positive integers");
 		return (1);
 	}
-	table->start_time = 0;
-	table->sim_end = 0;
 	return (0);
 }
 

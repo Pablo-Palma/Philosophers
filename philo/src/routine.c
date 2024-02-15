@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:31:31 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/15 13:50:49 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/15 14:13:10 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ void	eat(t_philo *philo)
 	drop_forks(philo);
 }
 
-void	handle_single_philo(t_philo *philo)
+int	handle_single_philo(t_philo *philo)
 {
 	pthread_mutex_lock(philo->left_fork);
 	messages(TAKE_FORKS, philo);
 	usleep(philo->table->tt_die * 1000);
 	pthread_mutex_unlock(philo->left_fork);
-	return ;
+	return (1);
 }
 
 void	*philo_routine(void *arg)
@@ -60,11 +60,8 @@ void	*philo_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	if (philo->table->n_philo == 1)
-	{
-		handle_single_philo(philo);
+	if (philo->table->n_philo == 1 && handle_single_philo(philo))
 		return (NULL);
-	}
 	while (1)
 	{
 		pthread_mutex_lock(philo->table->sim_end_mutex);

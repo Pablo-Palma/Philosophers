@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:03:42 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/15 08:25:24 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/15 13:53:14 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	main(int argc, char **argv)
 	while (i < table.n_philo)
 	{
 		pthread_join(*(table.philos[i].id_thread), NULL);
-//		usleep(100);
 		i++;
 	}
 	pthread_join(supervisor_thread, NULL);

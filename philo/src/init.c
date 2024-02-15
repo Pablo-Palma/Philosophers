@@ -6,11 +6,21 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:50:49 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/14 16:18:48 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/15 14:22:38 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	assign_values(t_table *table, char **argv)
+{
+	table->n_philo = ft_atoi(argv[1]);
+	table->tt_die = ft_atoi(argv[2]);
+	table->tt_eat = ft_atoi(argv[3]);
+	table->tt_sleep = ft_atoi(argv[4]);
+	table->start_time = 0;
+	table->sim_end = 0;
+}
 
 int	init_forks(t_table *table)
 {

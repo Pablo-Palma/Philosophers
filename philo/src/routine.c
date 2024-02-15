@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:31:31 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/15 09:20:56 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/15 13:39:57 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,9 @@ void	take_forks(t_philo *philo)
 		second_fork = philo->left_fork;
 	}
 	pthread_mutex_lock(first_fork);
-	if (!philo->table->sim_end)
-		messages(TAKE_FORKS, philo);
+	messages(TAKE_FORKS, philo);
 	pthread_mutex_lock(second_fork);
-	if (!philo->table->sim_end)
-		messages(TAKE_FORKS, philo);
+	messages(TAKE_FORKS, philo);
 }
 
 void	drop_forks(t_philo *philo)
@@ -43,34 +41,17 @@ void	drop_forks(t_philo *philo)
 
 void	eat(t_philo *philo)
 {
-	u_int64_t time;
-
-	/*pthread_mutex_lock(philo->table->sim_end_mutex);
-	if (philo->table->sim_end)
-	{
-		pthread_mutex_unlock(philo->table->sim_end_mutex);
-		return ;
-	}
-	pthread_mutex_unlock(philo->table->sim_end_mutex);*/
 	take_forks(philo);
+	pthread_mutex_lock(philo->statex);
+	philo->last_meal_time = get_time() - philo->table->start_time;
+	philo->n_meals++;
+	pthread_mutex_unlock(philo->statex);
 	pthread_mutex_lock(&philo->table->meals_mutex);
 	philo->table->total_meals++;
 	pthread_mutex_unlock(&philo->table->meals_mutex);
-	pthread_mutex_lock(philo->table->sim_end_mutex);
-	if (!philo->table->sim_end)
-	{
-		pthread_mutex_unlock(philo->table->sim_end_mutex);
-		messages(EATING, philo);
-	}
-	else
-		pthread_mutex_unlock(philo->table->sim_end_mutex);
+	messages(EATING, philo);
 	usleep(philo->table->tt_eat * 1000);
 	drop_forks(philo);
-	pthread_mutex_lock(philo->statex);
-	time = get_time();
-	philo->last_meal_time = time - philo->table->start_time;
-	philo->n_meals++;
-	pthread_mutex_unlock(philo->statex);
 }
 
 void	handle_single_philo(t_philo *philo)
@@ -78,7 +59,7 @@ void	handle_single_philo(t_philo *philo)
 	pthread_mutex_lock(philo->left_fork);
 	messages(TAKE_FORKS, philo);
 	usleep(philo->table->tt_die * 1000);
-//	messages(DIED, philo);
+	pthread_mutex_unlock(philo->left_fork);
 	return ;
 }
 
@@ -106,7 +87,8 @@ void	*philo_routine(void *arg)
 		messages(SLEEPING, philo);
 		usleep(philo->table->tt_sleep * 1000);
 		messages(THINKING, philo);
-	//	usleep(philo->table->tt_sleep * 1000);
+		if (philo->table->n_philo >= 5 || philo->table->n_philo == 3)
+			usleep(philo->table->tt_sleep * 1000);
 	}
 	return (NULL);
 }

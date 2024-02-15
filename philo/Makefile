@@ -3,7 +3,7 @@ CC = gcc
 CFLAGS = -g3 -Wall -Werror -Wextra -pthread -I inc $(SANITIZE)
 SRC_DIR = src/
 OBJ_DIR = obj/
-SRC = main.c init.c exit.c utils.c routine.c threads.c
+SRC = main.c init.c exit.c utils.c routine.c supervisor.c
 OBJ = $(SRC:%.c=$(OBJ_DIR)%.o)
 
 SANITIZE = 

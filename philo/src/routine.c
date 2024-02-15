@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:31:31 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/14 19:35:19 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/15 09:04:33 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ void	eat(t_philo *philo)
 {
 	u_int64_t time;
 
-	pthread_mutex_lock(philo->table->sim_end_mutex);
+	/*pthread_mutex_lock(philo->table->sim_end_mutex);
 	if (philo->table->sim_end)
 	{
 		pthread_mutex_unlock(philo->table->sim_end_mutex);
 		return ;
 	}
-	pthread_mutex_unlock(philo->table->sim_end_mutex);
+	pthread_mutex_unlock(philo->table->sim_end_mutex);*/
 	take_forks(philo);
 	pthread_mutex_lock(&philo->table->meals_mutex);
 	philo->table->total_meals++;
@@ -90,7 +90,6 @@ void	*philo_routine(void *arg)
 		handle_single_philo(philo);
 	while (1)
 	{
-		eat(philo);
 		pthread_mutex_lock(philo->table->sim_end_mutex);
 		if (philo->table->sim_end)
 		{
@@ -99,6 +98,7 @@ void	*philo_routine(void *arg)
 		}
 		else
 			pthread_mutex_unlock(philo->table->sim_end_mutex);
+		eat(philo);
 		messages(SLEEPING, philo);
 		usleep(philo->table->tt_sleep * 1000);
 		messages(THINKING, philo);

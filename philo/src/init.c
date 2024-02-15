@@ -6,20 +6,30 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:50:49 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/15 14:22:38 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/15 18:09:12 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	assign_values(t_table *table, char **argv)
+int	assign_values(t_table *table, char **argv, int argc)
 {
 	table->n_philo = ft_atoi(argv[1]);
+	if (table->n_philo > 500)
+	{
+		write (2, "Error: Number of philosophers too high\n", 39);
+		return (1);
+	}
 	table->tt_die = ft_atoi(argv[2]);
 	table->tt_eat = ft_atoi(argv[3]);
 	table->tt_sleep = ft_atoi(argv[4]);
+	if (argc == 6 && is_numeric(argv[5]))
+		table->tm_eat = ft_atoi(argv[5]);
+	else
+		table->tm_eat = 0;
 	table->start_time = 0;
 	table->sim_end = 0;
+	return (0);
 }
 
 int	init_forks(t_table *table)

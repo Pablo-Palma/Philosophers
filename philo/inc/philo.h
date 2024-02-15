@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:20:19 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/15 14:22:21 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/15 18:03:14 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_philo
 int			init_simulation(t_table *table);
 int			init_forks(t_table *table);
 int			init_philosophers(t_table *table);
-void		assign_values(t_table *table, char **argv);
+int			assign_values(t_table *table, char **argv, int argc);
 
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                           //
@@ -78,6 +78,7 @@ void		destroy_mutexes(pthread_mutex_t *forks, int n_philo);
 int			ft_atoi(const char *str);
 u_int64_t	get_time(void);
 int			ft_strcmp(const char *s1, const char *s2);
+int			is_numeric(const char *str);
 
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                           //

@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:46:45 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/13 12:24:49 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/15 17:08:10 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,19 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return ((unsigned char)*s1 - (unsigned char)*s2);
 }
 
-void	messages(const char *status, t_philo *philo)
+int	is_numeric(const char *str)
 {
-	u_int64_t	time;
-
-	sem_wait(philo->table->writex);
-	time = get_time() - philo->table->start_time;
-	if (!philo->table->sim_end || ft_strcmp(status, DIED) == 0)
-		printf("%llu %d %s\n", time, philo->id, status);
-	sem_post(philo->table->writex);
+	if (*str == '-' || *str == '+')
+		str++;
+	if (!*str)
+		return (0);
+	while (*str)
+	{
+		if (!(*str >= '0' && *str <= '9'))
+			return (0);
+		str++;
+	}
+	return (1);
 }
 
 int	parse(int argc, char **argv, t_table *table)
@@ -50,11 +54,14 @@ int	parse(int argc, char **argv, t_table *table)
 			"[number_of_times_each_philosopher_must_eat]\n", argv[0]);
 		return (1);
 	}
-	table->n_philo = ft_atoi(argv[1]);
-	table->tt_die = ft_atoi(argv[2]);
-	table->tt_eat = ft_atoi(argv[3]);
-	table->tt_sleep = ft_atoi(argv[4]);
-	if (argc == 6)
+	if (!is_numeric(argv[1]) || !is_numeric(argv[2]) || !is_numeric(argv[2])
+		|| !is_numeric(argv[4]))
+	{
+		printf("Error: All arguments must be numeric.\n");
+		return (1);
+	}
+	assign_values(table, argv);
+	if (argc == 6 && is_numeric(argv[5]))
 		table->tm_eat = ft_atoi(argv[5]);
 	else
 		table->tm_eat = 0;
@@ -64,8 +71,6 @@ int	parse(int argc, char **argv, t_table *table)
 		printf("Error, all arguments must be positive integers");
 		return (1);
 	}
-	table->start_time = 0;
-	table->sim_end = 0;
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:20:19 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/13 12:24:15 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/15 17:07:21 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_philo
 int			init_simulation(t_table *table);
 int			init_forks(t_table *table);
 int			init_philosophers(t_table *table);
+void		assign_values(t_table *table, char **argv);
 
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                           //

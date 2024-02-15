@@ -6,11 +6,22 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:31:31 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/15 16:50:40 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/15 17:02:35 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+
+void	messages(const char *status, t_philo *philo)
+{
+	u_int64_t	time;
+
+	sem_wait(philo->table->writex);
+	time = get_time() - philo->table->start_time;
+	if (!philo->table->sim_end || ft_strcmp(status, DIED) == 0)
+		printf("%llu %d %s\n", time, philo->id, status);
+	sem_post(philo->table->writex);
+}
 
 void	take_forks(t_philo *philo)
 {
@@ -18,12 +29,6 @@ void	take_forks(t_philo *philo)
 	messages(TAKE_FORKS, philo);
 	sem_wait(philo->table->forks);
 	messages(TAKE_FORKS, philo);
-}
-
-void	drop_forks(t_philo *philo)
-{
-	sem_post(philo->table->forks);
-	sem_post(philo->table->forks);
 }
 
 void	eat(t_philo *philo)
@@ -34,7 +39,8 @@ void	eat(t_philo *philo)
 	if (!philo->table->sim_end)
 		messages(EATING, philo);
 	usleep(philo->table->tt_eat * 1000);
-	drop_forks(philo);
+	sem_post(philo->table->forks);
+	sem_post(philo->table->forks);
 }
 
 void	handle_single_philo(t_philo *philo)

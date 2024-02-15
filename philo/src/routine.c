@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:31:31 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/15 13:39:57 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/15 13:50:49 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,8 @@ void	take_forks(t_philo *philo)
 	pthread_mutex_t	*first_fork;
 	pthread_mutex_t	*second_fork;
 
-	if (philo->id % 2 == 0)
-	{
-		first_fork = philo->left_fork;
-		second_fork = philo->right_fork;
-	}
-	else
-	{
-		first_fork = philo->right_fork;
-		second_fork = philo->left_fork;
-	}
+	first_fork = philo->right_fork;
+	second_fork = philo->left_fork;
 	pthread_mutex_lock(first_fork);
 	messages(TAKE_FORKS, philo);
 	pthread_mutex_lock(second_fork);
@@ -83,12 +75,12 @@ void	*philo_routine(void *arg)
 		}
 		else
 			pthread_mutex_unlock(philo->table->sim_end_mutex);
+		if (philo->id % 2 == 0)
+			usleep(1000);
 		eat(philo);
 		messages(SLEEPING, philo);
 		usleep(philo->table->tt_sleep * 1000);
 		messages(THINKING, philo);
-		if (philo->table->n_philo >= 5 || philo->table->n_philo == 3)
-			usleep(philo->table->tt_sleep * 1000);
 	}
 	return (NULL);
 }

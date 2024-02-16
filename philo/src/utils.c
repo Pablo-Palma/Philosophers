@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:46:45 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/15 18:04:28 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/16 08:23:38 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	parse(int argc, char **argv, t_table *table)
 	if (table->n_philo <= 0 || table->tt_die <= 0 || table->tt_eat <= 0
 		|| table->tt_sleep <= 0 || (argc == 6 && table->tm_eat <= 0))
 	{
-		printf("Error, all arguments must be positive integers");
+		printf("Error, all arguments must be positive integers\n");
 		return (1);
 	}
 	return (0);

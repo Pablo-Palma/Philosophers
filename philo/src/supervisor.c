@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 14:46:21 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/15 14:16:30 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/16 19:36:23 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	check_death(t_philo	*philo)
 	current_time = get_time() - philo->table->start_time;
 	pthread_mutex_lock(philo->statex);
 	if (current_time - philo->last_meal_time
-		> philo->table->tt_die)
+		> (u_int64_t)philo->table->tt_die)
 	{
 		pthread_mutex_unlock(philo->statex);
 		pthread_mutex_lock(philo->table->sim_end_mutex);

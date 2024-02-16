@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:20:19 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/15 18:03:14 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/16 19:35:12 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ typedef struct s_table
 	t_philo			*philos;
 	long			start_time;
 	int				n_philo;
-	u_int64_t		tt_die;
-	u_int64_t		tt_eat;
-	u_int64_t		tt_sleep;
+	int				tt_die;
+	int				tt_eat;
+	int				tt_sleep;
 	int				tm_eat;
 	int				total_meals;
 	int				sim_end;

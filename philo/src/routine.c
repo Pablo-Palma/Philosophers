@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:31:31 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/17 09:53:08 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/17 13:33:41 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	handle_single_philo(t_philo *philo)
 {
 	pthread_mutex_lock(philo->left_fork);
 	messages(TAKE_FORKS, philo);
-	opt_sleep(philo->table->tt_die);
 	opt_sleep(philo->table->tt_die);
 	pthread_mutex_unlock(philo->left_fork);
 	return (1);

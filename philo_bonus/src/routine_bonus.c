@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:31:31 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/17 13:02:01 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/17 13:19:46 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	eat(t_philo *philo)
 void	handle_single_philo(t_philo *philo)
 {
 	messages(TAKE_FORKS, philo);
-	usleep(philo->table->tt_die * 1000);
+	opt_sleep(philo->table->tt_die, *philo);
 	messages(DIED, philo);
 	exit(0);
 }
@@ -64,9 +64,9 @@ void	*philo_routine(void *arg)
 			> ((u_int64_t)philo->table->tt_die))
 			exit(TIME_OUT);
 		eat(philo);
-		if ((get_time() - philo->table->start_time - philo->last_meal_time)
-			> ((u_int64_t)philo->table->tt_die))
-			exit(TIME_OUT);
+//		if ((get_time() - philo->table->start_time - philo->last_meal_time)
+//			> ((u_int64_t)philo->table->tt_die))
+//			exit(TIME_OUT);
 		if (philo->table->tm_eat > 0 && philo->n_meals >= philo->table->tm_eat)
 			exit(MAX_MEALS);
 		messages(SLEEPING, philo);

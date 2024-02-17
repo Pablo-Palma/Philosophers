@@ -3,7 +3,8 @@ CC = gcc
 CFLAGS = -g3 -Wall -Werror -Wextra -pthread -I inc
 SRC_DIR = src/
 OBJ_DIR = obj/
-SRC = main_bonus.c init_bonus.c exit_bonus.c utils_bonus.c routine_bonus.c 
+SRC = main_bonus.c init_bonus.c exit_bonus.c \
+		utils_bonus.c routine_bonus.c time.c 
 OBJ = $(SRC:%.c=$(OBJ_DIR)%.o)
 
 #Rules

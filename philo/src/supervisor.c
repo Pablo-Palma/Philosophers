@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 14:46:21 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/16 19:36:23 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/17 16:42:34 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	messages(const char *status, t_philo *philo)
 	time = get_time() - philo->table->start_time;
 	if (!philo->table->sim_end || ft_strcmp(status, DIED) == 0)
 		printf("%llu %d %s\n", time, philo->id, status);
+	if (ft_strcmp(status, END) == 0)
+		printf("%llu %s\n", time, status);
 	pthread_mutex_unlock(philo->table->sim_end_mutex);
 	pthread_mutex_unlock(&philo->table->writex);
 }
@@ -85,7 +87,7 @@ void	*supervisor(void *arg)
 		}
 		if (check_max_meals(table))
 		{
-			messages(DIED, &table->philos[i - 1]);
+			messages(END, &table->philos[i - 1]);
 			break ;
 		}
 		usleep(1000);

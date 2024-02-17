@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:20:19 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/16 19:35:12 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/17 16:41:49 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define SLEEPING	"is sleeping"
 # define EATING		"is eating"
 # define DIED		"died"
+# define END		"End of the simulation"
 
 typedef struct s_philo	t_philo;
 

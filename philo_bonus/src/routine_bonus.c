@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:31:31 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/17 13:19:46 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/18 09:36:37 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ void	take_forks(t_philo *philo)
 void	eat(t_philo *philo)
 {
 	take_forks(philo);
+	if ((get_time() - philo->table->start_time - philo->last_meal_time)
+		> ((u_int64_t)philo->table->tt_die))
+		exit(TIME_OUT);
 	philo->last_meal_time = get_time() - philo->table->start_time;
 	philo->n_meals++;
 	if (!philo->table->sim_end)

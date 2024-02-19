@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 14:46:21 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/17 16:42:34 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/19 12:20:12 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 void	messages(const char *status, t_philo *philo)
 {
 	u_int64_t	time;
+	u_int64_t	start_time;
+	u_int64_t	time_spent;
 
+	start_time = get_time();
 	pthread_mutex_lock(&philo->table->writex);
 	pthread_mutex_lock(philo->table->sim_end_mutex);
 	time = get_time() - philo->table->start_time;
@@ -25,6 +28,8 @@ void	messages(const char *status, t_philo *philo)
 		printf("%llu %s\n", time, status);
 	pthread_mutex_unlock(philo->table->sim_end_mutex);
 	pthread_mutex_unlock(&philo->table->writex);
+	time_spent = get_time() - start_time;
+	philo->latency += time_spent;
 }
 
 int	check_death(t_philo	*philo)
@@ -34,7 +39,7 @@ int	check_death(t_philo	*philo)
 	current_time = get_time() - philo->table->start_time;
 	pthread_mutex_lock(philo->statex);
 	if (current_time - philo->last_meal_time
-		> (u_int64_t)philo->table->tt_die)
+		> (u_int64_t)philo->table->tt_die + philo->latency)
 	{
 		pthread_mutex_unlock(philo->statex);
 		pthread_mutex_lock(philo->table->sim_end_mutex);

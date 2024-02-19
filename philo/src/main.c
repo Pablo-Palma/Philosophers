@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:03:42 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/15 15:43:01 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/19 12:12:24 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	create_philo_threads(t_table	*table)
 			ft_exit(table);
 			return (1);
 		}
-		usleep(1);
+		opt_sleep(i);
 		i++;
 	}
 	return (0);

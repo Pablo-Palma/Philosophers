@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:20:19 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/17 16:41:49 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/19 11:49:48 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_philo
 {
 	int				id;
 	int				n_meals;
+	u_int64_t		latency;
 	u_int64_t		last_meal_time;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
@@ -80,6 +81,7 @@ int			ft_atoi(const char *str);
 u_int64_t	get_time(void);
 int			ft_strcmp(const char *s1, const char *s2);
 int			is_numeric(const char *str);
+void		opt_sleep(long time);
 
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                           //

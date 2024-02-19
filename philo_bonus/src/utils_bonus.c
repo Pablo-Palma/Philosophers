@@ -6,21 +6,21 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:46:45 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/19 09:37:06 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/19 17:27:04 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-void	messages_died(const char *status, t_philo *philo)
+void	messages(const char *status, t_philo *philo)
 {
 	u_int64_t	time;
 
+	sem_wait(philo->table->writex);
 	time = get_time() - philo->table->start_time;
-	if (ft_strcmp(status, END) == 0)
-		printf("%llu %s\n", time, status);
-	else if (!philo->table->sim_end || ft_strcmp(status, DIED) == 0)
+	if (!philo->table->sim_end || ft_strcmp(status, DIED) == 0)
 		printf("%llu %d %s\n", time, philo->id, status);
+	sem_post(philo->table->writex);
 }
 
 int	ft_strcmp(const char *s1, const char *s2)

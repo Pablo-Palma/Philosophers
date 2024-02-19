@@ -6,11 +6,22 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:03:42 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/13 11:18:58 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/19 17:26:39 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+
+void	messages_died(const char *status, t_philo *philo)
+{
+	u_int64_t	time;
+
+	time = get_time() - philo->table->start_time;
+	if (ft_strcmp(status, END) == 0)
+		printf("%llu %s\n", time, status);
+	else if (!philo->table->sim_end || ft_strcmp(status, DIED) == 0)
+		printf("%llu %d %s\n", time, philo->id, status);
+}
 
 void	ft_exit(t_table *table)
 {

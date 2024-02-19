@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:31:31 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/19 17:16:32 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/19 17:27:13 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,6 @@ void	*death_monitor(void *arg)
 		opt_sleep(1, *philo);
 	}
 	return (NULL);
-}
-
-void	messages(const char *status, t_philo *philo)
-{
-	u_int64_t	time;
-
-	sem_wait(philo->table->writex);
-	time = get_time() - philo->table->start_time;
-	if (!philo->table->sim_end || ft_strcmp(status, DIED) == 0)
-		printf("%llu %d %s\n", time, philo->id, status);
-	sem_post(philo->table->writex);
 }
 
 void	take_forks(t_philo *philo)

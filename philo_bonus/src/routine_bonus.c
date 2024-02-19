@@ -6,11 +6,30 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:31:31 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/19 09:15:25 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/19 17:16:32 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+#include <pthread.h>
+
+void	*death_monitor(void *arg)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
+	while (philo->monitor_active)
+	{
+		if ((get_time() - philo->table->start_time - philo->last_meal_time)
+			> ((u_int64_t)philo->table->tt_die))
+		{
+			messages(DIED, philo);
+			exit(TIME_OUT);
+		}
+		opt_sleep(1, *philo);
+	}
+	return (NULL);
+}
 
 void	messages(const char *status, t_philo *philo)
 {
@@ -25,13 +44,16 @@ void	messages(const char *status, t_philo *philo)
 
 void	take_forks(t_philo *philo)
 {
+	pthread_t	monitor;
+
+	philo->monitor_active = 1;
+	pthread_create(&monitor, NULL, death_monitor, philo);
 	sem_wait(philo->table->forks);
 	messages(TAKE_FORKS, philo);
-	if ((get_time() - philo->table->start_time - philo->last_meal_time)
-		> ((u_int64_t)philo->table->tt_die))
-		exit(TIME_OUT);
 	sem_wait(philo->table->forks);
 	messages(TAKE_FORKS, philo);
+	philo->monitor_active = 0;
+	pthread_join(monitor, NULL);
 }
 
 void	eat(t_philo *philo)

@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:20:19 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/19 09:36:58 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/19 17:03:41 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_philo
 {
 	int				id;
 	int				n_meals;
+	int				monitor_active;
 	long			last_meal_time;
 	pid_t			pid;
 	t_table			*table;

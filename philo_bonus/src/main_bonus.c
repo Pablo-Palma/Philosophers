@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:03:42 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/19 09:37:47 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/19 16:43:00 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ void	terminate_philos(t_table	*table)
 
 void	handle_termination(t_table *table, int count_meals)
 {
+	terminate_philos(table);
 	if (count_meals >= table->n_philo)
 		messages_died(END, &table->philos[0]);
 	else
 		messages_died(DIED, &table->philos[0]);
-	terminate_philos(table);
 }
 
 void	wait_and_terminate(t_table	*table)

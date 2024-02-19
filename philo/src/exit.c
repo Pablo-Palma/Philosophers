@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:03:42 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/13 13:36:26 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/19 13:40:32 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	ft_exit(t_table *table)
 		while (i < table->n_philo)
 		{
 			pthread_mutex_destroy(&table->forks[i]);
+			pthread_mutex_destroy(&table->philos[i].m_latency);
 			i++;
 		}
 		free(table->forks);

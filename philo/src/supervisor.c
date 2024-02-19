@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 14:46:21 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/19 12:20:12 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/19 13:35:14 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ void	messages(const char *status, t_philo *philo)
 		printf("%llu %s\n", time, status);
 	pthread_mutex_unlock(philo->table->sim_end_mutex);
 	pthread_mutex_unlock(&philo->table->writex);
+	pthread_mutex_lock(&philo->m_latency);
 	time_spent = get_time() - start_time;
 	philo->latency += time_spent;
+	pthread_mutex_unlock(&philo->m_latency);
 }
 
 int	check_death(t_philo	*philo)
@@ -37,16 +39,17 @@ int	check_death(t_philo	*philo)
 	u_int64_t	current_time;
 
 	current_time = get_time() - philo->table->start_time;
+	pthread_mutex_lock(&philo->m_latency);
 	pthread_mutex_lock(philo->statex);
 	if (current_time - philo->last_meal_time
 		> (u_int64_t)philo->table->tt_die + philo->latency)
 	{
+		pthread_mutex_unlock(&philo->m_latency);
 		pthread_mutex_unlock(philo->statex);
 		pthread_mutex_lock(philo->table->sim_end_mutex);
 		if (!philo->table->sim_end)
 		{
 			philo->table->sim_end = 1;
-			pthread_mutex_unlock(philo->table->sim_end_mutex);
 			messages(DIED, philo);
 		}
 		else
@@ -54,7 +57,10 @@ int	check_death(t_philo	*philo)
 		return (1);
 	}
 	else
+	{
 		pthread_mutex_unlock(philo->statex);
+		pthread_mutex_unlock(&philo->m_latency);
+	}
 	return (0);
 }
 

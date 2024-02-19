@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:50:49 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/15 18:09:12 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/19 13:41:35 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ int	init_forks(t_table *table)
 	if (!table->forks)
 		return (0);
 	while (i < table->n_philo)
+	{
 		pthread_mutex_init(&table->forks[i++], NULL);
+		pthread_mutex_init(&table->philos[i].m_latency, NULL);
+	}
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:31:31 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/19 12:03:47 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/19 13:07:25 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ void	take_forks(t_philo *philo)
 	pthread_mutex_lock(second_fork);
 	messages(TAKE_FORKS, philo);
 	time_spent = get_time() - start_time;
+	pthread_mutex_lock(&philo->m_latency);
 	philo->latency += time_spent;
+	pthread_mutex_unlock(&philo->m_latency);
 }
 
 void	eat(t_philo *philo)

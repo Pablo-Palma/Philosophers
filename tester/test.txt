@@ -1,0 +1,5 @@
+1 800 200 200		--------------->    El filósofo no come y muere
+5 800 200 200 7		--------------->	La acción de comer se da 35 veces
+4 410 200 200		--------------->	Ninguno Muere
+4 310 200 100		--------------->	Uno Muere
+

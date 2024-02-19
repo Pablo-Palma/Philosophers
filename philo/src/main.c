@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:03:42 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/19 12:12:24 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/19 15:09:17 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	create_philo_threads(t_table	*table)
 	int	i;
 
 	i = 0;
+	table->philos[i].latency = 0;
 	while (i < table->n_philo)
 	{
 		if (pthread_create(table->philos[i].id_thread, NULL, philo_routine,
@@ -32,6 +33,9 @@ int	create_philo_threads(t_table	*table)
 			return (1);
 		}
 		opt_sleep(i);
+		pthread_mutex_lock(&table->philos[i].m_latency);
+		table->philos[i].latency += i;
+		pthread_mutex_unlock(&table->philos[i].m_latency);
 		i++;
 	}
 	return (0);

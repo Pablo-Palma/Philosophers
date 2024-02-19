@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:20:19 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/19 13:04:28 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/19 15:07:10 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ typedef struct s_table
 	pthread_mutex_t	meals_mutex;
 	t_philo			*philos;
 	long			start_time;
-	int				n_philo;
-	int				tt_die;
-	int				tt_eat;
-	int				tt_sleep;
-	int				tm_eat;
-	int				total_meals;
-	int				sim_end;
+	long			n_philo;
+	long			tt_die;
+	long			tt_eat;
+	long			tt_sleep;
+	long			tm_eat;
+	long			total_meals;
+	long			sim_end;
 	pthread_mutex_t	*sim_end_mutex;
 }					t_table;
 

@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:31:31 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/18 09:36:37 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/19 09:15:25 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ void	take_forks(t_philo *philo)
 {
 	sem_wait(philo->table->forks);
 	messages(TAKE_FORKS, philo);
+	if ((get_time() - philo->table->start_time - philo->last_meal_time)
+		> ((u_int64_t)philo->table->tt_die))
+		exit(TIME_OUT);
 	sem_wait(philo->table->forks);
 	messages(TAKE_FORKS, philo);
 }
@@ -34,9 +37,6 @@ void	take_forks(t_philo *philo)
 void	eat(t_philo *philo)
 {
 	take_forks(philo);
-	if ((get_time() - philo->table->start_time - philo->last_meal_time)
-		> ((u_int64_t)philo->table->tt_die))
-		exit(TIME_OUT);
 	philo->last_meal_time = get_time() - philo->table->start_time;
 	philo->n_meals++;
 	if (!philo->table->sim_end)
@@ -63,13 +63,7 @@ void	*philo_routine(void *arg)
 		handle_single_philo(philo);
 	while (1)
 	{
-		if ((get_time() - philo->table->start_time - philo->last_meal_time)
-			> ((u_int64_t)philo->table->tt_die))
-			exit(TIME_OUT);
 		eat(philo);
-//		if ((get_time() - philo->table->start_time - philo->last_meal_time)
-//			> ((u_int64_t)philo->table->tt_die))
-//			exit(TIME_OUT);
 		if (philo->table->tm_eat > 0 && philo->n_meals >= philo->table->tm_eat)
 			exit(MAX_MEALS);
 		messages(SLEEPING, philo);

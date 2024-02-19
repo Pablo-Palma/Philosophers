@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:03:42 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/13 12:25:36 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/19 09:37:47 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	create_philo_pro(t_table	*table)
 			philo_routine(&(table->philos[i]));
 			exit(0);
 		}
-		usleep(100);
 		i++;
 	}
 	return (0);
@@ -49,23 +48,21 @@ void	terminate_philos(t_table	*table)
 	}
 }
 
-void	messages_died(const char *status, t_philo *philo)
+void	handle_termination(t_table *table, int count_meals)
 {
-	u_int64_t	time;
-
-	time = get_time() - philo->table->start_time;
-	if (!philo->table->sim_end || ft_strcmp(status, DIED) == 0)
-		printf("%llu %d %s\n", time, philo->id, status);
+	if (count_meals >= table->n_philo)
+		messages_died(END, &table->philos[0]);
+	else
+		messages_died(DIED, &table->philos[0]);
+	terminate_philos(table);
 }
 
 void	wait_and_terminate(t_table	*table)
 {
 	int		status;
-	int		i;
 	int		count_meals;
 	pid_t	pid;
 
-	i = 0;
 	count_meals = 0;
 	pid = waitpid(-1, &status, 0);
 	while (pid > 0)
@@ -77,8 +74,7 @@ void	wait_and_terminate(t_table	*table)
 			if (count_meals >= table->n_philo
 				|| WEXITSTATUS(status) == TIME_OUT)
 			{
-				terminate_philos(table);
-				messages_died(DIED, &table->philos[i]);
+				handle_termination(table, count_meals);
 				break ;
 			}
 		}

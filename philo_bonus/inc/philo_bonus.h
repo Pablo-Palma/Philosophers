@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:20:19 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/17 13:12:13 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/19 09:36:58 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define SLEEPING	"is sleeping"
 # define EATING		"is eating"
 # define DIED		"died"
+# define END		"END of simulation"
 
 # define FORKS_SEM		"/forks_sem"
 # define WRITEX_SEM		"/writex_sem"
@@ -94,6 +95,7 @@ int			parse(int argc, char **argv, t_table *table);
 void		destroy_mutexes(pthread_mutex_t *forks, int n_philo);
 int			ft_atoi(const char *str);
 int			ft_strcmp(const char *s1, const char *s2);
+void		messages_died(const char *status, t_philo *philo);
 
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                           //

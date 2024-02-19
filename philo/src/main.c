@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:03:42 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/19 15:09:17 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/19 15:51:04 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	create_philo_threads(t_table	*table)
 			ft_exit(table);
 			return (1);
 		}
-		opt_sleep(i);
+		usleep(1);
 		pthread_mutex_lock(&table->philos[i].m_latency);
 		table->philos[i].latency += i;
 		pthread_mutex_unlock(&table->philos[i].m_latency);

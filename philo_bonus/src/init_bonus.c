@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:50:49 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/15 17:50:20 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/20 09:30:21 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,14 @@ int	init_philosophers(t_table *table)
 
 int	init_sems(t_table	*table)
 {
+	sem_unlink(SIM_END_SEM);
+	table->sim_end_sem = sem_open(SIM_END_SEM, O_CREAT | O_EXCL, 0644, 1);
+	if (table->sim_end_sem == SEM_FAILED)
+	{
+		write(2, "sem_open failed for sim_end_sem", 31);
+		free(table->philos);
+		return (0);
+	}
 	sem_unlink(WRITEX_SEM);
 	table->writex = sem_open(WRITEX_SEM, O_CREAT | O_EXCL, 0644, 1);
 	if (table->writex == SEM_FAILED)

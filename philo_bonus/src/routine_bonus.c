@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:31:31 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/19 17:27:13 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/20 10:19:19 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void	handle_single_philo(t_philo *philo)
 {
 	messages(TAKE_FORKS, philo);
 	opt_sleep(philo->table->tt_die, *philo);
-	messages(DIED, philo);
+	philo->table->sim_end = 1;
+	messages_died(DIED, philo);
 	exit(0);
 }
 

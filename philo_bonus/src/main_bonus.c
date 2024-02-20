@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:03:42 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/19 16:43:00 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/20 09:42:32 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,9 @@ void	wait_and_terminate(t_table	*table)
 			if (count_meals >= table->n_philo
 				|| WEXITSTATUS(status) == TIME_OUT)
 			{
+				sem_wait(table->sim_end_sem);
+				table->sim_end = 1;
+				sem_post(table->sim_end_sem);
 				handle_termination(table, count_meals);
 				break ;
 			}

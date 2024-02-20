@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:46:45 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/19 17:27:04 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/20 09:47:28 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	messages(const char *status, t_philo *philo)
 
 	sem_wait(philo->table->writex);
 	time = get_time() - philo->table->start_time;
-	if (!philo->table->sim_end || ft_strcmp(status, DIED) == 0)
+	if (!philo->table->sim_end && ft_strcmp(status, DIED) != 0)
 		printf("%llu %d %s\n", time, philo->id, status);
 	sem_post(philo->table->writex);
 }

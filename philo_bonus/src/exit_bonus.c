@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:03:42 by pabpalma          #+#    #+#             */
-/*   Updated: 2024/02/19 17:26:39 by pabpalma         ###   ########.fr       */
+/*   Updated: 2024/02/20 10:04:14 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,27 @@ void	messages_died(const char *status, t_philo *philo)
 	time = get_time() - philo->table->start_time;
 	if (ft_strcmp(status, END) == 0)
 		printf("%llu %s\n", time, status);
-	else if (!philo->table->sim_end || ft_strcmp(status, DIED) == 0)
+	else if (philo->table->sim_end == 1 && ft_strcmp(status, DIED) == 0)
+	{
 		printf("%llu %d %s\n", time, philo->id, status);
+		sem_wait(philo->table->sim_end_sem);
+		philo->table->sim_end = 2;
+		sem_post(philo->table->sim_end_sem);
+	}
+}
+
+void	close_sem(t_table *table)
+{
+	if (table->total_meals_sem)
+	{
+		sem_close(table->total_meals_sem);
+		sem_unlink(MEALS_SEM);
+	}
+	if (table->sim_end_sem)
+	{
+		sem_close(table->sim_end_sem);
+		sem_unlink(SIM_END_SEM);
+	}
 }
 
 void	ft_exit(t_table *table)
@@ -35,11 +54,7 @@ void	ft_exit(t_table *table)
 		sem_close(table->writex);
 		sem_unlink(WRITEX_SEM);
 	}
-	if (table->total_meals_sem)
-	{
-		sem_close(table->total_meals_sem);
-		sem_unlink(MEALS_SEM);
-	}
+	close_sem(table);
 	if (table->philos)
 	{
 		free(table->philos);
